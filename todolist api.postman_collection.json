@@ -1,0 +1,432 @@
+{
+	"info": {
+		"_postman_id": "403c2c74-6414-4efa-baa4-876d33d948c5",
+		"name": "todolist api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "7777643"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"raihanhori\",\n    \"password\": \"password\"\n}   ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}login"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"raihanki02@gmail.com\",\n    \"username\": \"raihanhori\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}register"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Checklist",
+			"item": [
+				{
+					"name": "Get All Checklist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "5|3bZ4MaYP8iF25UfLoic7Uno0BhM5hohYsRtQFdqga7d96266"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"raihanhori\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}checklist"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Checklist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"First Checklist\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{base_url}}checklist"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Checklist",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Second Checklist\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}checklist/:checklistId",
+							"host": [
+								"{{base_url}}checklist"
+							],
+							"path": [
+								":checklistId"
+							],
+							"variable": [
+								{
+									"key": "checklistId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Checklist Item",
+			"item": [
+				{
+					"name": "Get All Checklist Item By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}checklist/:checklistId/item",
+							"host": [
+								"{{base_url}}checklist"
+							],
+							"path": [
+								":checklistId",
+								"item"
+							],
+							"variable": [
+								{
+									"key": "checklistId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Checklist Item In Checklist",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"raihanki02@gmail.com\",\n    \"username\": \"raihanhori\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}checklist/:checklistId/item/:checklistItemId",
+							"host": [
+								"{{base_url}}checklist"
+							],
+							"path": [
+								":checklistId",
+								"item",
+								":checklistItemId"
+							],
+							"variable": [
+								{
+									"key": "checklistId",
+									"value": "1"
+								},
+								{
+									"key": "checklistItemId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Checklist Item in Checklist",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_name\": \"Learn laravel\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}checklist/:checklistId/item",
+							"host": [
+								"{{base_url}}checklist"
+							],
+							"path": [
+								":checklistId",
+								"item"
+							],
+							"variable": [
+								{
+									"key": "checklistId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename Checklist Item",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"item_name\": \"Learn laravel Edited 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}checklist/:checklistId/item/rename/:checklistItemId",
+							"host": [
+								"{{base_url}}checklist"
+							],
+							"path": [
+								":checklistId",
+								"item",
+								"rename",
+								":checklistItemId"
+							],
+							"variable": [
+								{
+									"key": "checklistId",
+									"value": "1"
+								},
+								{
+									"key": "checklistItemId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Status Checklist Item",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}checklist/:checklistId/item/:checklistItemId",
+							"host": [
+								"{{base_url}}checklist"
+							],
+							"path": [
+								":checklistId",
+								"item",
+								":checklistItemId"
+							],
+							"variable": [
+								{
+									"key": "checklistId",
+									"value": "1"
+								},
+								{
+									"key": "checklistItemId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Checklist Item",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Second Checklist\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}checklist/:checklistId/item/:checklistItemId",
+							"host": [
+								"{{base_url}}checklist"
+							],
+							"path": [
+								":checklistId",
+								"item",
+								":checklistItemId"
+							],
+							"variable": [
+								{
+									"key": "checklistId",
+									"value": "1"
+								},
+								{
+									"key": "checklistItemId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "5|3bZ4MaYP8iF25UfLoic7Uno0BhM5hohYsRtQFdqga7d96266"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost:8000/api/",
+			"type": "string"
+		}
+	]
+}
