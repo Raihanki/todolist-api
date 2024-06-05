@@ -9,6 +9,7 @@ use App\Http\Resources\ChecklistItemResource;
 use App\Http\Resources\ChecklistResource;
 use App\Models\Checklist;
 use App\Models\ChecklistItem;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,12 @@ class ChecklistItemController extends Controller
 {
     public function index(Checklist $checklist, Request $request): JsonResponse
     {
+        if ($request->user()->cannot('update', $checklist)) {
+            return response()->json([
+                'message' => 'unauthorized'
+            ], 403);
+        }
+
         $checklistItems = Checklist::query()
             ->where('user_id', $request->user()->id)
             ->with('checklistItems')
@@ -27,8 +34,14 @@ class ChecklistItemController extends Controller
         ], 200);
     }
 
-    public function show(Checklist $checklist, ChecklistItem $checklistItem): JsonResponse
+    public function show(Checklist $checklist, ChecklistItem $checklistItem, Request $request): JsonResponse
     {
+        if ($request->user()->cannot('update', $checklist)) {
+            return response()->json([
+                'message' => 'unauthorized'
+            ], 403);
+        }
+
         return response()->json([
             'message' => 'successfully retrieved checklist item',
             'data' => new ChecklistItemResource($checklistItem),
@@ -37,6 +50,12 @@ class ChecklistItemController extends Controller
 
     public function store(Checklist $checklist, ChecklistItemReqeuest $checklistItemReqeuest): JsonResponse
     {
+        if ($checklistItemReqeuest->user()->cannot('update', $checklist)) {
+            return response()->json([
+                'message' => 'unauthorized'
+            ], 403);
+        }
+
         $requestBody = $checklistItemReqeuest->validated();
         $checklistItem = $checklist->checklistItems()->create($requestBody);
 
@@ -48,6 +67,12 @@ class ChecklistItemController extends Controller
 
     public function renameItem(Checklist $checklist, ChecklistItem $checklistItem, ChecklistItemReqeuest $checklistItemReqeuest): JsonResponse
     {
+        if ($checklistItemReqeuest->user()->cannot('update', $checklist)) {
+            return response()->json([
+                'message' => 'unauthorized'
+            ], 403);
+        }
+
         $requestBody = $checklistItemReqeuest->validated();
         $checklistItem->update($requestBody);
 
@@ -56,8 +81,14 @@ class ChecklistItemController extends Controller
         ], 200);
     }
 
-    public function update(Checklist $checklist, ChecklistItem $checklistItem): JsonResponse
+    public function update(Checklist $checklist, ChecklistItem $checklistItem, Request $request): JsonResponse
     {
+        if ($request->user()->cannot('update', $checklist)) {
+            return response()->json([
+                'message' => 'unauthorized'
+            ], 403);
+        }
+
         $checklistItem->update([
             'is_completed' => !$checklistItem->is_completed
         ]);
@@ -67,8 +98,14 @@ class ChecklistItemController extends Controller
         ], 200);
     }
 
-    public function destroy(Checklist $checklist, ChecklistItem $checklistItem): JsonResponse
+    public function destroy(Checklist $checklist, ChecklistItem $checklistItem, Request $request): JsonResponse
     {
+        if ($request->user()->cannot('update', $checklist)) {
+            return response()->json([
+                'message' => 'unauthorized'
+            ], 403);
+        }
+
         $checklistItem->delete();
 
         return response()->json([
