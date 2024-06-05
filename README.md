@@ -1,4 +1,5 @@
 # Todolist API
+Todolist API, created using Laravel With SQLite using Laravel Sanctum Token Authentication 
 
 ## Instalation
 
